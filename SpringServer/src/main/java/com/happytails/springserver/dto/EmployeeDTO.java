@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Date;
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -12,7 +14,12 @@ import lombok.NoArgsConstructor;
 public class EmployeeDTO {
     String firstName;
     String lastName;
+    Date birthdate;
+    String phone;
+    String email;
     String address;
+    String about;
+    Integer experience;
     Double rating;
     Integer reviewCount;
     Double price;

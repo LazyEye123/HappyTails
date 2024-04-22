@@ -1,5 +1,6 @@
 package com.happytails.springserver.controller;
 
+import com.happytails.springserver.dto.EmployeeDTO;
 import com.happytails.springserver.service.EmployeeService;
 import com.happytails.springserver.filter.EmployeeFilter;
 import com.happytails.springserver.models.Employee;
@@ -21,7 +22,7 @@ public class ClientController {
     }
 
     @GetMapping("/employee/filter")
-    public List<Employee> getEmployeesByFilter(@RequestBody EmployeeFilter employeeFilter) {
+    public List<EmployeeDTO> getEmployeesByFilter(@RequestBody EmployeeFilter employeeFilter) {
         return employeeService.getEmployeesByFilter(employeeFilter);
     }
 

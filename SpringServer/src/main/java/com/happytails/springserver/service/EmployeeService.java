@@ -1,12 +1,15 @@
 package com.happytails.springserver.service;
 
+import com.happytails.springserver.dto.EmployeeDTO;
 import com.happytails.springserver.filter.EmployeeFilter;
+import com.happytails.springserver.mapper.EmployeeMapperImpl;
 import com.happytails.springserver.models.*;
 import com.happytails.springserver.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
@@ -19,6 +22,7 @@ public class EmployeeService {
     private final OrderPricesRepository orderPricesRepository;
     private final RatingRepository ratingRepository;
     private final UsersRepository usersRepository;
+    private final EmployeeMapperImpl employeeMapper;
 
     public Employee save(Employee employee) {
         var e = employeeRepository.save(employee);
@@ -71,8 +75,9 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public List<Employee> getEmployeesByFilter(EmployeeFilter employeeFilter) {
+    public List<EmployeeDTO> getEmployeesByFilter(EmployeeFilter employeeFilter) {
         Stream<Employee> employees = employeeRepository.findAll().stream();
+        var employeesDto = new ArrayList<EmployeeDTO>();
         switch (employeeFilter.getPriority()) {
             case Price -> //                return employeeRepository.findAllByAddressAndAnimalTypes_CatAndAnimalTypes_DogAndOrderPrices_DoWalkingAndOrderPrices_DoFurloughAndOrderPrices_DoDogsitterOrderByOrderPrices_WalkingPriceDescOrderPrices_FurloughPriceDescOrderPrices_DogsitterPriceDesc(employeeFilter.getCity(), employeeFilter.getCat(), employeeFilter.getDog(), employeeFilter.getOrderTypes()[0], employeeFilter.getOrderTypes()[1], employeeFilter.getOrderTypes()[2]);
                     employees = employeeRepository
@@ -109,7 +114,17 @@ public class EmployeeService {
                     return ((orderPrices.getWalkingPrice() > 0) == employeeFilter.getOrderTypes()[0]) && ((orderPrices.getFurloughPrice() > 0) == employeeFilter.getOrderTypes()[1]) && ((orderPrices.getDogsitterPrice() > 0) == employeeFilter.getOrderTypes()[2]);
                 });
             }
-        return employees.toList();
+        for (var e : employees.toList()) {
+            var employeeDto = employeeMapper.employeeToDto(e);
+            var orderPrices = orderPricesRepository.getById(e.getPricesId());
+            employeeDto.setPrice(orderPrices.getWalkingPrice());
+            employeeDto.setOrderTypes(new Boolean[]{orderPrices.getWalkingPrice() > 0, orderPrices.getFurloughPrice() > 0, orderPrices.getDogsitterPrice() > 0});
+            var animalTypes = animalTypesRepository.getById(e.getAnimalId());
+            employeeDto.setIsCat(animalTypes.isCat());
+            employeeDto.setIsDog(animalTypes.isDog());
+            employeesDto.add(employeeDto);
+        }
+        return employeesDto;
     }
 
     public void delete(Long employeeId) {

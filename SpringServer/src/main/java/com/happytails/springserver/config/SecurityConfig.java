@@ -41,10 +41,10 @@ public class SecurityConfig {
                             .anyRequest()
                             .authenticated();
                 })
-                .httpBasic()
-                .and()
                 .sessionManagement()
                 .disable()
+                .httpBasic()
+                .and()
 //                .sessionCreationPolicy(SessionCreationPolicy.NEVER)
 //                .and()
                 .build();

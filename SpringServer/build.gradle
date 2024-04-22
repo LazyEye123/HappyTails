@@ -7,7 +7,7 @@ plugins {
 
 group = 'com.genuinecoder'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '17'
+sourceCompatibility = '18'
 
 repositories {
 	mavenCentral()
@@ -18,6 +18,9 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	runtimeOnly 'org.postgresql:postgresql'
+	// вот это надо закомментить (чтобы не было защиты)
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+
 
 	// https://mvnrepository.com/artifact/mysql/mysql-connector-java
 	//implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.28'

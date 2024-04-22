@@ -1,7 +1,7 @@
 package com.happytails.springserver;
 
-import com.happytails.springserver.model.employee.Employee;
-import com.happytails.springserver.model.employee.EmployeeDao;
+import com.happytails.springserver.models.Employee;
+import com.happytails.springserver.service.EmployeeService;
 import java.util.List;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -15,13 +15,13 @@ import org.springframework.boot.test.context.SpringBootTest;
 class SpringServerApplicationTests {
 
   @Autowired
-  private EmployeeDao employeeDao;
+  private EmployeeService employeeService;
 
   @BeforeAll
   public void clear() {
-    List<Employee> employees = employeeDao.getAllEmployees();
+    List<Employee> employees = employeeService.getAllEmployees();
     for (Employee employee : employees) {
-      employeeDao.delete(employee.getId());
+      employeeService.delete(employee.getId());
     }
   }
 
@@ -37,7 +37,7 @@ class SpringServerApplicationTests {
     employee.setName(name);
     employee.setLocation(location);
     employee.setBranch(branch);
-    employeeDao.save(employee);
+    employeeService.save(employee);
   }
 
 }

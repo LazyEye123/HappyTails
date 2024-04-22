@@ -1,0 +1,18 @@
+spring:
+#  security:
+#    user:
+#      name: admin
+#      password: admin
+  datasource:
+    username: postgres
+    password: 123
+    url: jdbc:postgresql://localhost:5432/HappyTails
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+server:
+  port: 9000

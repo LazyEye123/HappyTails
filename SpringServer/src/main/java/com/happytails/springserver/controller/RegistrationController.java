@@ -1,5 +1,6 @@
 package com.happytails.springserver.controller;
 
+import com.happytails.springserver.dto.EmployeeDTO;
 import com.happytails.springserver.service.EmployeeService;
 import com.happytails.springserver.models.Employee;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +16,7 @@ public class RegistrationController {
     private final EmployeeService employeeService;
 
     @PostMapping("/employee")
-    public Employee createEmployee(@RequestBody Employee employee) {
-        return employeeService.save(employee);
+    public void createEmployee(@RequestBody Employee employee) {
+         employeeService.save(employee);
     }
 }

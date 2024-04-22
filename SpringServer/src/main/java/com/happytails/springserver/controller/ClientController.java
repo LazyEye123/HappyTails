@@ -17,7 +17,7 @@ public class ClientController {
     private final EmployeeService employeeService;
 
     @GetMapping("/employee")
-    public List<Employee> getAllEmployees() {
+    public List<EmployeeDTO> getAllEmployees() {
         return employeeService.getAllEmployees();
     }
 
@@ -27,7 +27,7 @@ public class ClientController {
     }
 
     @PutMapping("/employee/rate")
-    public Employee rateEmployee(@RequestBody Employee employee, @RequestParam("rating") Integer rating) {
-        return employeeService.rateEmployee(employee, rating);
+    public void rateEmployee(@RequestBody Employee employee, @RequestParam("rating") Integer rating) {
+        employeeService.rateEmployee(employee, rating);
     }
 }

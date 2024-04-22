@@ -24,7 +24,7 @@ public class EmployeeService {
     private final UsersRepository usersRepository;
     private final EmployeeMapperImpl employeeMapper;
 
-    public Employee save(Employee employee) {
+    public void save(Employee employee) {
         var e = employeeRepository.save(employee);
         // для отключения защиты закомменть эту строчку
         e.setPassword(new BCryptPasswordEncoder().encode(e.getPassword()));
@@ -52,10 +52,10 @@ public class EmployeeService {
                 .password(e.getPassword())
                 .roles("EMPLOYEE")
                 .build());
-        return employeeRepository.save(e);
+        employeeRepository.save(e);
     }
 
-    public Employee rateEmployee(Employee employee, Integer rating) {
+    public void rateEmployee(Employee employee, Integer rating) {
         var e = employeeRepository.findById(employee.getId()).get();
         var rate = ratingRepository.findById(employee.getRatingId()).get();
         switch (rating) {
@@ -68,11 +68,14 @@ public class EmployeeService {
         double middleValue = (rate.getOne() + 2 * rate.getTwo() + 3 * rate.getThree() + 4 * rate.getFour() + 5 * rate.getFive()) / (double) (rate.getOne() + rate.getTwo() + rate.getThree() + rate.getFour() + rate.getFive());
         e.setRating(middleValue);
         ratingRepository.save(rate);
-        return employeeRepository.save(e);
+        employeeRepository.save(e);
     }
 
-    public List<Employee> getAllEmployees() {
-        return employeeRepository.findAll();
+    public List<EmployeeDTO> getAllEmployees() {
+        var employeesDto = new ArrayList<EmployeeDTO>();
+        for (var e :  employeeRepository.findAll())
+            employeesDto.add(convertToDto(e));
+        return employeesDto;
     }
 
     public List<EmployeeDTO> getEmployeesByFilter(EmployeeFilter employeeFilter) {
@@ -114,20 +117,23 @@ public class EmployeeService {
                     return ((orderPrices.getWalkingPrice() > 0) == employeeFilter.getOrderTypes()[0]) && ((orderPrices.getFurloughPrice() > 0) == employeeFilter.getOrderTypes()[1]) && ((orderPrices.getDogsitterPrice() > 0) == employeeFilter.getOrderTypes()[2]);
                 });
             }
-        for (var e : employees.toList()) {
-            var employeeDto = employeeMapper.employeeToDto(e);
-            var orderPrices = orderPricesRepository.getById(e.getPricesId());
-            employeeDto.setPrice(orderPrices.getWalkingPrice());
-            employeeDto.setOrderTypes(new Boolean[]{orderPrices.getWalkingPrice() > 0, orderPrices.getFurloughPrice() > 0, orderPrices.getDogsitterPrice() > 0});
-            var animalTypes = animalTypesRepository.getById(e.getAnimalId());
-            employeeDto.setIsCat(animalTypes.isCat());
-            employeeDto.setIsDog(animalTypes.isDog());
-            employeesDto.add(employeeDto);
-        }
+        for (var e : employees.toList())
+            employeesDto.add(convertToDto(e));
         return employeesDto;
     }
 
     public void delete(Long employeeId) {
         employeeRepository.deleteById(employeeId);
+    }
+
+    private EmployeeDTO convertToDto(Employee e) {
+        var employeeDto = employeeMapper.employeeToDto(e);
+        var orderPrices = orderPricesRepository.getById(e.getPricesId());
+        employeeDto.setPrice(orderPrices.getWalkingPrice());
+        employeeDto.setOrderTypes(new Boolean[]{orderPrices.getWalkingPrice() > 0, orderPrices.getFurloughPrice() > 0, orderPrices.getDogsitterPrice() > 0});
+        var animalTypes = animalTypesRepository.getById(e.getAnimalId());
+        employeeDto.setIsCat(animalTypes.isCat());
+        employeeDto.setIsDog(animalTypes.isDog());
+        return employeeDto;
     }
 }

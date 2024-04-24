@@ -73,7 +73,7 @@ public class EmployeeService {
 
     public List<EmployeeDTO> getAllEmployees() {
         var employeesDto = new ArrayList<EmployeeDTO>();
-        for (var e :  employeeRepository.findAll())
+        for (var e : employeeRepository.findAll())
             employeesDto.add(convertToDto(e));
         return employeesDto;
     }
@@ -83,40 +83,31 @@ public class EmployeeService {
         var employeesDto = new ArrayList<EmployeeDTO>();
         switch (employeeFilter.getPriority()) {
             case Price -> //                return employeeRepository.findAllByAddressAndAnimalTypes_CatAndAnimalTypes_DogAndOrderPrices_DoWalkingAndOrderPrices_DoFurloughAndOrderPrices_DoDogsitterOrderByOrderPrices_WalkingPriceDescOrderPrices_FurloughPriceDescOrderPrices_DogsitterPriceDesc(employeeFilter.getCity(), employeeFilter.getCat(), employeeFilter.getDog(), employeeFilter.getOrderTypes()[0], employeeFilter.getOrderTypes()[1], employeeFilter.getOrderTypes()[2]);
-                    employees = employeeRepository
-                            .findAll()
-                            .stream()
+                    employees = employees
                             .sorted((o1, o2) -> (int) (orderPricesRepository.findById(o1.getPricesId()).get().getWalkingPrice() - orderPricesRepository.findById(o2.getPricesId()).get().getWalkingPrice()))
                             .sorted((o1, o2) -> (int) (orderPricesRepository.findById(o1.getPricesId()).get().getFurloughPrice() - orderPricesRepository.findById(o2.getPricesId()).get().getFurloughPrice()))
                             .sorted((o1, o2) -> (int) (orderPricesRepository.findById(o1.getPricesId()).get().getDogsitterPrice() - orderPricesRepository.findById(o2.getPricesId()).get().getDogsitterPrice()));
             case Review -> //                return employeeRepository.findAllByAddressAndAnimalTypes_CatAndAnimalTypes_DogAndOrderPrices_DoWalkingAndOrderPrices_DoFurloughAndOrderPrices_DoDogsitterOrderByReviewCountAsc(employeeFilter.getCity(), employeeFilter.getCat(), employeeFilter.getDog(), employeeFilter.getOrderTypes()[0], employeeFilter.getOrderTypes()[1], employeeFilter.getOrderTypes()[2]);
-                    employees = employeeRepository
-                            .findAll()
-                            .stream()
+                    employees = employees
                             .sorted((o1, o2) -> o2.getReviewCount() - o1.getReviewCount());
             case Rating -> //                return employeeRepository.findAllByAddressAndAnimalTypes_CatAndAnimalTypes_DogAndOrderPrices_DoWalkingAndOrderPrices_DoFurloughAndOrderPrices_DoDogsitterOrderByRatingAsc(employeeFilter.getCity(), employeeFilter.getCat(), employeeFilter.getDog(), employeeFilter.getOrderTypes()[0], employeeFilter.getOrderTypes()[1], employeeFilter.getOrderTypes()[2]);
-                    employees = employeeRepository
-                            .findAll()
-                            .stream()
+                    employees = employees
                             .sorted(Comparator.comparing(Employee::getRating).reversed());
         }
-        if (employeeFilter.getCat() != null)
-            employees = employees.filter(employee -> animalTypesRepository.getById(employee.getAnimalId()).isCat() == employeeFilter.getCat());
-        if (employeeFilter.getDog() != null)
-            employees = employees.filter(employee -> animalTypesRepository.getById(employee.getAnimalId()).isDog() == employeeFilter.getDog());
-        if (employeeFilter.getOrderTypes() != null)
-            switch (employeeFilter.getOrderTypes().length) {
-                case 1 ->
-                        employees = employees.filter(employee -> (orderPricesRepository.getById(employee.getPricesId()).getWalkingPrice() > 0) == employeeFilter.getOrderTypes()[0]);
-                case 2 -> employees = employees.filter(employee -> {
-                    var orderPrices = orderPricesRepository.getById(employee.getPricesId());
-                    return ((orderPrices.getWalkingPrice() > 0) == employeeFilter.getOrderTypes()[0]) && ((orderPrices.getFurloughPrice() > 0) == employeeFilter.getOrderTypes()[1]);
-                });
-                case 3 -> employees = employees.filter(employee -> {
-                    var orderPrices = orderPricesRepository.getById(employee.getPricesId());
-                    return ((orderPrices.getWalkingPrice() > 0) == employeeFilter.getOrderTypes()[0]) && ((orderPrices.getFurloughPrice() > 0) == employeeFilter.getOrderTypes()[1]) && ((orderPrices.getDogsitterPrice() > 0) == employeeFilter.getOrderTypes()[2]);
-                });
-            }
+        if (employeeFilter.getCat())
+            employees = employees.filter(employee -> animalTypesRepository.getById(employee.getAnimalId()).isCat());
+        if (employeeFilter.getDog())
+            employees = employees.filter(employee -> animalTypesRepository.getById(employee.getAnimalId()).isDog());
+        for (int i = 0; i < 3; i++)
+            if (employeeFilter.getOrderTypes()[i])
+                switch (i) {
+                    case 0 ->
+                            employees = employees.filter(employee -> orderPricesRepository.getById(employee.getPricesId()).getWalkingPrice() > 0);
+                    case 1 ->
+                            employees = employees.filter(employee -> orderPricesRepository.getById(employee.getPricesId()).getFurloughPrice() > 0);
+                    case 2 ->
+                            employees = employees.filter(employee -> orderPricesRepository.getById(employee.getPricesId()).getDogsitterPrice() > 0);
+                }
         for (var e : employees.toList())
             employeesDto.add(convertToDto(e));
         return employeesDto;
@@ -128,12 +119,11 @@ public class EmployeeService {
 
     private EmployeeDTO convertToDto(Employee e) {
         var employeeDto = employeeMapper.employeeToDto(e);
-        var orderPrices = orderPricesRepository.getById(e.getPricesId());
+        var orderPrices = e.getOrderPrices();
         employeeDto.setPrice(orderPrices.getWalkingPrice());
         employeeDto.setOrderTypes(new Boolean[]{orderPrices.getWalkingPrice() > 0, orderPrices.getFurloughPrice() > 0, orderPrices.getDogsitterPrice() > 0});
-        var animalTypes = animalTypesRepository.getById(e.getAnimalId());
-        employeeDto.setIsCat(animalTypes.isCat());
-        employeeDto.setIsDog(animalTypes.isDog());
+        employeeDto.setIsCat(e.getAnimalTypes().isCat());
+        employeeDto.setIsDog(e.getAnimalTypes().isDog());
         return employeeDto;
     }
 }

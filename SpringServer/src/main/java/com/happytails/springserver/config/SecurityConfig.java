@@ -33,11 +33,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests(registry -> {
                     registry
                             .antMatchers("/api/v1.0/registration/**")
-                            .permitAll();
-                    registry
+                            .permitAll()
                             .antMatchers("/api/v1.0/employee/**")
-                                    .hasRole("CLIENT");
-                    registry
+                            .hasRole("CLIENT")
                             .anyRequest()
                             .authenticated();
                 })
@@ -52,7 +50,7 @@ public class SecurityConfig {
 
     @Bean
     // этот возвращает UserDetailsService для доступа к пользователям в БД и их сравнения
-    public UserDetailsService userDetailsService(){
+    public UserDetailsService userDetailsService() {
         return myUserDetailsService;
     }
 

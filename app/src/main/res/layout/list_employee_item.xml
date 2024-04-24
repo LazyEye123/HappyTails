@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+  android:layout_height="wrap_content">
+
+  <TextView
+      android:id="@+id/employeeListItem_name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="96dp"
+      android:layout_marginTop="16dp"
+      android:text="Name S."
+      android:textAlignment="viewEnd"
+      android:textColor="#212528"
+      android:textSize="16sp"
+      android:textStyle="bold"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <TextView
+      android:id="@+id/employeeListItem_location"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+
+      android:layout_marginStart="96dp"
+      android:layout_marginTop="4dp"
+      android:text="Address"
+      android:textSize="16sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@id/employeeListItem_name" />
+
+  <TextView
+    android:id="@+id/employeeListItem_branch"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_margin="20dp"
+    android:text="Branch"
+    android:textSize="16sp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <View
+      android:layout_width="match_parent"
+      android:layout_height="1dp"
+      android:background="#C2C2C2"
+      app:layout_constraintTop_toBottomOf="@id/employeeListItem_location"
+      tools:layout_editor_absoluteX="0dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

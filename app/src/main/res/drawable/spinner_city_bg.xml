@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:exitFadeDuration="@android:integer/config_mediumAnimTime">
+    <item android:state_pressed="true" android:drawable="@color/tailswhite" />
+    <item android:state_selected="true" android:drawable="@color/tailswhite" />
+    <item><bitmap
+
+        android:gravity="center_vertical|right"
+        android:src="@drawable/img" />
+    </item>
+
+</selector>

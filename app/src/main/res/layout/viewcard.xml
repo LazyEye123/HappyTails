@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    app:cardBackgroundColor="#EBEBEB"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="8dp"
+    app:cardMaxElevation="10dp"
+    app:cardPreventCornerOverlap="true"
+    app:cardUseCompatPadding="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="138dp">
+
+        <ImageView
+            android:id="@+id/idEmployeeAvatar"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:contentDescription="@string/app_name"
+            android:padding="5dp" />
+
+        <TextView
+            android:id="@+id/idEmployeeName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="150dp"
+            android:layout_toEndOf="@id/idEmployeeAvatar"
+            android:fontFamily="@font/noto_sans"
+            android:text="@string/card_name"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/idEmployeeAddress"
+            android:layout_width="186dp"
+            android:layout_height="59dp"
+            android:layout_below="@id/idEmployeeName"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="100dp"
+            android:layout_toEndOf="@id/idEmployeeAvatar"
+            android:drawablePadding="2dp"
+            android:fontFamily="@font/noto_sans"
+            android:text="@string/card_address"
+            android:textColor="#212528"
+            />
+
+        <TextView
+            android:id="@+id/idEmployeePrice"
+            android:layout_width="85dp"
+            android:layout_height="37dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="11dp"
+            android:fontFamily="@font/noto_sans"
+            android:text="@string/card_price"
+            android:textAlignment="center"
+            android:textColor="#38769B"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="80dp"
+            android:layout_marginEnd="22dp"
+            android:fontFamily="@font/noto_sans"
+            android:text="за 30 мин"
+            android:textAlignment="center"
+            android:textColor="#212528"
+            android:textSize="14sp" />
+
+        <TextView
+
+            android:id="@+id/idEmployeeRating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="110dp"
+            android:layout_marginEnd="228dp"
+            android:fontFamily="@font/noto_sans"
+            android:text="@string/card_rating"
+            android:textAlignment="viewStart"
+            android:textColor="#212528"
+            android:textSize="12sp" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="18sp"
+            android:layout_height="18sp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="110dp"
+            android:layout_marginEnd="257dp"
+            app:srcCompat="@drawable/ic_star" />
+
+        <TextView
+
+            android:id="@+id/idEmployeeReviewCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="110dp"
+            android:layout_marginEnd="150dp"
+            android:fontFamily="@font/noto_sans"
+            android:text="@string/card_reviews"
+            android:textAlignment="center"
+            android:textColor="#B95959"
+            android:textSize="12sp" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

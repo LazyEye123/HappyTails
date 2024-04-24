@@ -1,6 +1,32 @@
 <resources>
-    <string name="app_name">HappyTails</string>
-    <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
+  <string name="app_name">SpringClient</string>
+  <string name="form_name">Name</string>
+  <string name="form_branch">Branch</string>
+  <string name="form_location">Location</string>
+  <string name="button_save_employee">SAVE EMPLOYEE</string>
+  <string name="image">Image</string>
+  <string name="card_name">Имя Ф.</string>
+  <string name="card_address">Адрес</string>
+  <string name="card_price">Цена</string>
+  <string name="card_rating">Рейт.</string>
+  <string name="card_reviews">X отзывов</string>
+  <string name="card_orders">Кол-во повт. заказов</string>
+  <string name="employeelist_header">Выбор ситтера</string>
+
+  <string-array name="cities">
+    <item>Воронеж</item>
+    <item>Москва</item>
+    <item>Санкт-Петербург</item>
+  </string-array>
+
+  <string-array name="sort">
+    <item>Дешевле</item>
+    <item>Много отзывов</item>
+    <item>Выше рейтинг</item>
+  </string-array>
+
+  <string-array name="filter">
+    <item>Собака</item>
+    <item>Кот</item>
+  </string-array>
 </resources>

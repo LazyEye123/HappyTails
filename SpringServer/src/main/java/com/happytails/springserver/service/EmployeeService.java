@@ -24,10 +24,9 @@ public class EmployeeService {
     private final UsersRepository usersRepository;
     private final EmployeeMapperImpl employeeMapper;
 
-    public void save(Employee employee) {
+    public void save(EmployeeDTO employeeDto) {
+        var employee = employeeMapper.dtoToEmployee(employeeDto);
         var e = employeeRepository.save(employee);
-        // для отключения защиты закомменть эту строчку
-        e.setPassword(new BCryptPasswordEncoder().encode(e.getPassword()));
         e.setAnimalId(e.getId());
         e.setPricesId(e.getId());
         e.setRatingId(e.getId());
@@ -43,15 +42,13 @@ public class EmployeeService {
                 .builder()
                 .id(e.getId())
                 .build());
-        // можешь в принципе отключить создание записи в таблице юзеров (ибо пароли там без энкодера из security
-        // все равно будут не закодированы)
-        usersRepository.save(Users
+        var u = usersRepository.save(Users
                 .builder()
-                .id(e.getId())
-                .username(e.getLogin())
-                .password(e.getPassword())
+                .username(employeeDto.getLogin())
+                .password(new BCryptPasswordEncoder().encode(employeeDto.getPassword()))
                 .roles("EMPLOYEE")
                 .build());
+        e.setUsersId(u.getId());
         employeeRepository.save(e);
     }
 

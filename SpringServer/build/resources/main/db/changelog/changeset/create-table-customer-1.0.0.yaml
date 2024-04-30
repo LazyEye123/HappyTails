@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: Alexander
+      changes:
+        - createTable:
+            tableName: customer
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: first_name
+                  type: varchar(40)
+              - column:
+                  name: last_name
+                  type: varchar(60)
+              - column:
+                  name: birthdate
+                  type: date
+              - column:
+                  name: phone
+                  type: varchar(100)
+              - column:
+                  name: email
+                  type: varchar(100)
+              - column:
+                  name: address_walk
+                  type: varchar(255)
+              - column:
+                  name: photo
+                  type: varchar(255)
+              - column:
+                  name: users_id
+                  type: bigint

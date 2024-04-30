@@ -1,0 +1,16 @@
+databaseChangeLog:
+  - include:
+      file: changeset/drop-columns-login-password-1.0.0.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: changeset/create-table-customer-1.0.0.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: changeset/create-table-order-1.0.0.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: changeset/create-table-pet-1.0.0.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: changeset/add-columns-photo-users_id-to-employee-table-1.0.0.yaml
+      relativeToChangelogFile: true

@@ -1,14 +1,17 @@
 package com.happytails.springserver.models;
 
-import javax.persistence.*;
-
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Past;
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "employee")
@@ -21,21 +24,20 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(name = "login")
-    private String login;
-    @Column(name = "password")
-    private String password;
+    @NotBlank
     @Column(name = "first_name")
     private String firstName;
-
+    @NotBlank
     @Column(name = "last_name")
     private String lastName;
+    @Past
     @Column(name = "birthdate")
     private Date birthdate;
+    //    @Pattern(regexp = "8[(]\\d{3}[)]-\\d{3}-\\d{2}-\\d{2}", message = "Пожалуйста, введите номер в указанном формате: 8(XXX)-XXX-XX-XX")
     @Column(name = "phone")
     private String phone;
 
+    @Email
     @Column(name = "email")
     private String email;
     @Column(name = "address")
@@ -49,14 +51,16 @@ public class Employee {
     private String about;
     @Column(name = "experience")
     private Integer experience;
+    @Column(name = "photo")
+    private String photoPath;
     @Column(name = "animal_id")
     private Long animalId;
     @Column(name = "prices_id")
     private Long pricesId;
     @Column(name = "rating_id")
     private Long ratingId;
-    // ВРОДЕ КАК починил отношения между таблицами (но это не точно)
-    // JsonIgnore добавил, чтобы тело ответа корректно формировалось
+    @Column(name = "users_id")
+    private Long usersId;
     @OneToOne(cascade = CascadeType.REMOVE)
     @JsonIgnore
     @JoinColumn(name = "animal_id", referencedColumnName = "id", insertable = false, updatable = false)
@@ -71,4 +75,13 @@ public class Employee {
     @JsonIgnore
     @JoinColumn(name = "rating_id", referencedColumnName = "id", insertable = false, updatable = false)
     private OrderPrices rate;
+
+    @OneToOne(cascade = CascadeType.REMOVE)
+    @JsonIgnore
+    @JoinColumn(name = "users_id", referencedColumnName = "id", insertable = false, updatable = false)
+    private Users usersEmployee;
+
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Order> orderList;
 }

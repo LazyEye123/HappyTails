@@ -1,0 +1,39 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: Alexander
+      changes:
+        - createTable:
+            tableName: order
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: service_type
+                  type: varchar(40)
+              - column:
+                  name: date
+                  type: date
+              - column:
+                  name: payment_method
+                  type: varchar(20)
+              - column:
+                  name: order_status
+                  type: varchar(20)
+              - column:
+                  name: sum
+                  type: integer
+              - column:
+                  name: client_id
+                  type: bigint
+              - column:
+                  name: pet_id
+                  type: bigint
+              - column:
+                  name: employee_id
+                  type: bigint

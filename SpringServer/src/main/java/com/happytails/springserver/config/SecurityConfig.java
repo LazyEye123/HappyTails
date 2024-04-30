@@ -19,14 +19,10 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 @AllArgsConstructor
-// класс конфига защиты. если хочешь её отключить, закомменть целиком этот класс, MyUserDetailsService,
-// пару строчек в EmployeeService и зависимость в build.gradle (вроде ничего не забыл)
 public class SecurityConfig {
     private final MyUserDetailsService myUserDetailsService;
 
     @Bean
-    // коротко о методах. этот возвращает цепочку фильтров, устанавливающую доступ к маппингам по ролям
-    // и прочие настройки http
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
@@ -40,22 +36,19 @@ public class SecurityConfig {
                             .authenticated();
                 })
                 .sessionManagement()
-                .disable()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
                 .httpBasic()
                 .and()
-//                .sessionCreationPolicy(SessionCreationPolicy.NEVER)
-//                .and()
                 .build();
     }
 
     @Bean
-    // этот возвращает UserDetailsService для доступа к пользователям в БД и их сравнения
     public UserDetailsService userDetailsService() {
         return myUserDetailsService;
     }
 
     @Bean
-    // Предоставляет аутенификацию через заданный UserDetailsService и PasswordEncoder
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setUserDetailsService(myUserDetailsService);
@@ -64,7 +57,6 @@ public class SecurityConfig {
     }
 
     @Bean
-    // возвращает энкодер пароля
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }

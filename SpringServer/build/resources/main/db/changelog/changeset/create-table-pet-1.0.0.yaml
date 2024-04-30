@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: Alexander
+      changes:
+        - createTable:
+            tableName: pet
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+              - column:
+                  name: name
+                  type: varchar(40)
+              - column:
+                  name: type
+                  type: varchar(30)
+              - column:
+                  name: gender
+                  type: varchar(20)
+              - column:
+                  name: age
+                  type: integer
+              - column:
+                  name: weight
+                  type: integer
+              - column:
+                  name: breed
+                  type: varchar(60)
+              - column:
+                  name: description
+                  type: varchar(200)
+              - column:
+                  name: photo
+                  type: varchar(255)
+              - column:
+                  name: owner_id
+                  type: bigint

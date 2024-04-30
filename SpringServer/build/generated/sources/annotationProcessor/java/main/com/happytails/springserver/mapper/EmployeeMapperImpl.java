@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2024-04-22T23:42:17+0300",
+    date = "2024-04-30T19:59:50+0300",
     comments = "version: 1.5.5.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.4.jar, environment: Java 18.0.2 (Oracle Corporation)"
 )
 @Component
@@ -21,6 +21,7 @@ public class EmployeeMapperImpl implements EmployeeMapper {
 
         Employee.EmployeeBuilder employee = Employee.builder();
 
+        employee.id( employeeDTO.getId() );
         employee.firstName( employeeDTO.getFirstName() );
         employee.lastName( employeeDTO.getLastName() );
         employee.birthdate( employeeDTO.getBirthdate() );
@@ -43,6 +44,7 @@ public class EmployeeMapperImpl implements EmployeeMapper {
 
         EmployeeDTO.EmployeeDTOBuilder employeeDTO = EmployeeDTO.builder();
 
+        employeeDTO.id( employee.getId() );
         employeeDTO.firstName( employee.getFirstName() );
         employeeDTO.lastName( employee.getLastName() );
         employeeDTO.birthdate( employee.getBirthdate() );

@@ -1,0 +1,14 @@
+databaseChangeLog:
+  - changeSet:
+      id: 5
+      author: Alexander
+      changes:
+        - addColumn:
+            tableName: employee
+            columns:
+              - column:
+                  name: photo
+                  type: varchar(255)
+              - column:
+                  name: users_id
+                  type: bigint

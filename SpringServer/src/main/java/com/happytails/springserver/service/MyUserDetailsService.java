@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-// возвращает кастомный UserDetailsService для доступа к пользователям и авторизации
 public class MyUserDetailsService implements UserDetailsService {
     private final UsersRepository usersRepository;
 

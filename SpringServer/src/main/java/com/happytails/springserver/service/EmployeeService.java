@@ -52,10 +52,10 @@ public class EmployeeService {
         employeeRepository.save(e);
     }
 
-    public void rateEmployee(Employee employee, Integer rating) {
-        var e = employeeRepository.findById(employee.getId()).get();
-        var rate = ratingRepository.findById(employee.getRatingId()).get();
-        switch (rating) {
+    public void rateEmployee(EmployeeDTO employeeDTO) {
+        var e = employeeRepository.findById(employeeDTO.getId()).get();
+        var rate = ratingRepository.findById(e.getRatingId()).get();
+        switch (employeeDTO.getRatingValue()) {
             case 1 -> rate.setOne(rate.getOne() + 1);
             case 2 -> rate.setTwo(rate.getTwo() + 1);
             case 3 -> rate.setThree(rate.getThree() + 1);

@@ -1,6 +1,8 @@
 package com.happytails.springserver.controller;
 
 import com.happytails.springserver.dto.EmployeeDTO;
+import com.happytails.springserver.dto.PetDTO;
+import com.happytails.springserver.service.CustomerService;
 import com.happytails.springserver.service.EmployeeService;
 import com.happytails.springserver.filter.EmployeeFilter;
 import com.happytails.springserver.models.Employee;
@@ -15,6 +17,7 @@ import java.util.List;
 @RequestMapping("/api/v1.0")
 public class ClientController {
     private final EmployeeService employeeService;
+    private final CustomerService customerService;
 
     @GetMapping("/employee")
     public List<EmployeeDTO> getAllEmployees() {
@@ -27,7 +30,12 @@ public class ClientController {
     }
 
     @PutMapping("/employee/rate")
-    public void rateEmployee(@Valid @RequestBody Employee employee, @RequestParam("rating") Integer rating) {
-        employeeService.rateEmployee(employee, rating);
+    public void rateEmployee(@RequestBody EmployeeDTO employeeDTO) {
+        employeeService.rateEmployee(employeeDTO);
+    }
+
+    @PostMapping("/pet")
+    public void addPet(@Valid @RequestBody PetDTO petDTO) {
+        customerService.savePet(petDTO);
     }
 }

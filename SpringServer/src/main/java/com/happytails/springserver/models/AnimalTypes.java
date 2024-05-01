@@ -22,7 +22,6 @@ public class AnimalTypes
     boolean dog;
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JsonIgnore

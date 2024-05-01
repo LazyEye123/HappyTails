@@ -23,7 +23,6 @@ public class OrderPrices {
     double dogsitterPrice;
 
     @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @JsonIgnore

@@ -2,9 +2,12 @@ package com.happytails.springserver.service;
 
 import com.happytails.springserver.dto.CustomerDTO;
 import com.happytails.springserver.dto.EmployeeDTO;
+import com.happytails.springserver.dto.PetDTO;
 import com.happytails.springserver.mapper.CustomerMapperImpl;
+import com.happytails.springserver.mapper.PetMapperImpl;
 import com.happytails.springserver.models.*;
 import com.happytails.springserver.repository.CustomerRepository;
+import com.happytails.springserver.repository.PetRepository;
 import com.happytails.springserver.repository.UsersRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -16,6 +19,9 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final UsersRepository usersRepository;
     private final CustomerMapperImpl customerMapper;
+    private final PetMapperImpl petMapper;
+    private final PetRepository petRepository;
+
     public void save(CustomerDTO customerDTO) {
         var customer = customerMapper.dtoToCustomer(customerDTO);
         var u = usersRepository.save(Users
@@ -26,5 +32,9 @@ public class CustomerService {
                 .build());
         customer.setUsersId(u.getId());
         customerRepository.save(customer);
+    }
+
+    public void savePet(PetDTO petDTO) {
+        petRepository.save(petMapper.dtoToPet(petDTO));
     }
 }

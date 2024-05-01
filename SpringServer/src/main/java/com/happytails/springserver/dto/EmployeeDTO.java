@@ -15,9 +15,9 @@ import java.sql.Date;
 @Data
 public class EmployeeDTO {
     Long id;
-    @NotBlank(message = "Имя не может быть пустым.")
+    @NotBlank(message = "Имя не может быть пустым")
     String firstName;
-    @NotBlank(message = "Фамилия не может быть пустой.")
+    @NotBlank(message = "Фамилия не может быть пустой")
     String lastName;
     @Past
     Date birthdate;
@@ -31,9 +31,11 @@ public class EmployeeDTO {
     Double rating;
     Integer reviewCount;
     Double price;
+    String photoPath;
     Boolean[] orderTypes;
     Boolean isCat;
     Boolean isDog;
+    Integer ratingValue;
     @NotBlank(message = "Поле логина не должно быть пустым")
     String login;
     @Size(min = 8, message = "Длина пароля должна быть не менее 8 символов")

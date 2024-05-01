@@ -74,7 +74,7 @@ public class Employee {
     @OneToOne(cascade = CascadeType.REMOVE)
     @JsonIgnore
     @JoinColumn(name = "rating_id", referencedColumnName = "id", insertable = false, updatable = false)
-    private OrderPrices rate;
+    private Rating rate;
 
     @OneToOne(cascade = CascadeType.REMOVE)
     @JsonIgnore

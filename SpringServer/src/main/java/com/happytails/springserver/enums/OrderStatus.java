@@ -1,5 +1,5 @@
 package com.happytails.springserver.enums;
 
 public enum OrderStatus {
-    Processed, Cancelled, Finished
+    Awaiting, Processed, Cancelled, Finished
 }

@@ -1,32 +1,53 @@
 <resources>
-  <string name="app_name">SpringClient</string>
-  <string name="form_name">Name</string>
-  <string name="form_branch">Branch</string>
-  <string name="form_location">Location</string>
-  <string name="button_save_employee">SAVE EMPLOYEE</string>
-  <string name="image">Image</string>
-  <string name="card_name">Имя Ф.</string>
-  <string name="card_address">Адрес</string>
-  <string name="card_price">Цена</string>
-  <string name="card_rating">Рейт.</string>
-  <string name="card_reviews">X отзывов</string>
-  <string name="card_orders">Кол-во повт. заказов</string>
-  <string name="employeelist_header">Выбор ситтера</string>
+    <string name="app_name">SpringClient</string>
+    <string name="form_name">Name</string>
+    <string name="form_branch">Branch</string>
+    <string name="form_location">Location</string>
+    <string name="button_save_employee">SAVE EMPLOYEE</string>
+    <string name="image">Image</string>
+    <string name="card_name">Имя Ф.</string>
+    <string name="card_address">Адрес</string>
+    <string name="card_price">Цена</string>
+    <string name="card_rating">Рейт.</string>
+    <string name="card_reviews">X отзывов</string>
+    <string name="card_orders">Кол-во повт. заказов</string>
+    <string name="employeelist_header">Выбор ситтера</string>
+    <string name="city">Воронеж</string>
+    <string name="title_services">Для счастливых хвостиков</string>
+    <string name="service_price">Цена</string>
+    <string name="service_name">Услуга</string>
+    <string name="service_description">Описание услуги</string>
+    <string name="service_price_description">за выгул</string>
 
-  <string-array name="cities">
-    <item>Воронеж</item>
-    <item>Москва</item>
-    <item>Санкт-Петербург</item>
-  </string-array>
+    <string-array name="cities">
+        <item>Воронеж</item>
+        <item>Москва</item>
+        <item>Санкт-Петербург</item>
+    </string-array>
 
-  <string-array name="sort">
-    <item>Дешевле</item>
-    <item>Много отзывов</item>
-    <item>Выше рейтинг</item>
-  </string-array>
+    <string-array name="sort">
+        <item>Дешевле</item>
+        <item>Много отзывов</item>
+        <item>Выше рейтинг</item>
+    </string-array>
 
-  <string-array name="filter">
-    <item>Собака</item>
-    <item>Кот</item>
-  </string-array>
+    <string-array name="filter">
+        <item>Собака</item>
+        <item>Кот</item>
+    </string-array>
+
+    <string-array name="order">
+        <item>Выгул</item>
+        <item>Передержка</item>
+        <item>Зооняня</item>
+    </string-array>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
 </resources>

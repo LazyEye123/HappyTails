@@ -1,6 +1,5 @@
-package com.genuinecoder.springclient;
+package com.genuinecoder.springclient.employee_list_activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -12,19 +11,21 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.genuinecoder.springclient.adapter.EmployeeAdapter;
-import com.genuinecoder.springclient.adapter.EmployeeFilterAdapter;
-import com.genuinecoder.springclient.adapter.EmployeeSortAdapter;
-import com.genuinecoder.springclient.model.Cat;
-import com.genuinecoder.springclient.model.Employee;
-import com.genuinecoder.springclient.model.EmployeeFilter;
-import com.genuinecoder.springclient.model.Priority;
+
+import com.genuinecoder.springclient.R;
+import com.genuinecoder.springclient.employee_list_activity.adapters.EmployeeAdapter;
+import com.genuinecoder.springclient.employee_list_activity.adapters.EmployeeFilterAdapter;
+import com.genuinecoder.springclient.employee_list_activity.adapters.EmployeeSortAdapter;
+import com.genuinecoder.springclient.employee_list_activity.dto.EmployeeDTO;
+import com.genuinecoder.springclient.employee_list_activity.mapper.EmployeeMapperImpl;
+import com.genuinecoder.springclient.employee_list_activity.model.EmployeeCard;
+import com.genuinecoder.springclient.employee_list_activity.model.EmployeeFilter;
+import com.genuinecoder.springclient.employee_list_activity.enumerator.Priority;
 import com.genuinecoder.springclient.reotrfit.EmployeeApi;
 import com.genuinecoder.springclient.reotrfit.RetrofitService;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -154,94 +155,29 @@ public class EmployeeListActivity extends AppCompatActivity {
     });
   }
 
-  private void sendCat()
-  {
-    RetrofitService retrofitService = new RetrofitService();
-    EmployeeApi employeeApi = retrofitService.getRetrofit().create(EmployeeApi.class);
-    Cat cat = new Cat();
-    cat.setName("Барсик");
-    cat.setAge(3);
-    cat.setNeeds(new Boolean[] {true, true});
-    employeeApi.print(cat)
-            .enqueue(new Callback<Cat>() {
-              @Override
-              public void onResponse(Call<Cat> call, Response<Cat> response) {
-                Cat cat = (Cat) response.body();
-                cat.print();
-              }
-
-              @Override
-              public void onFailure(Call<Cat> call, Throwable t) {
-                Toast.makeText(EmployeeListActivity.this, "Failed to print cat", Toast.LENGTH_SHORT).show();
-              }
-            });
-  }
-
-  private void getTestEmployee() {
-    RetrofitService retrofitService = new RetrofitService();
-    EmployeeApi employeeApi = retrofitService.getRetrofit().create(EmployeeApi.class);
-
-    employeeApi.getOneEmployee()
-            .enqueue(new Callback<Employee>() {
-              @Override
-              public void onResponse(Call<Employee> call, Response<Employee> response) {
-                System.out.println("Ответ получен.");
-                Employee employee = response.body();
-                System.out.println(employee);
-                //populateListView(response.body());
-              }
-
-              @Override
-              public void onFailure(Call<Employee> call, Throwable t) {
-                Toast.makeText(EmployeeListActivity.this, "Failed to load employees", Toast.LENGTH_SHORT).show();
-              }
-            });
-  }
-  private void getEmployees() {
-    RetrofitService retrofitService = new RetrofitService();
-    EmployeeApi employeeApi = retrofitService.getRetrofit().create(EmployeeApi.class);
-
-    employeeApi.getAllEmployees()
-            .enqueue(new Callback<List<Employee>>() {
-              @Override
-              public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
-                System.out.println("Ответ получен.");
-                List<Employee> list = response.body();
-                for(Employee l : list)
-                {
-                  System.out.print(l);
-                }
-
-                //populateListView(response.body());
-              }
-
-              @Override
-              public void onFailure(Call<List<Employee>> call, Throwable t) {
-                Toast.makeText(EmployeeListActivity.this, "Failed to load employees", Toast.LENGTH_SHORT).show();
-              }
-            });
-  }
-
   private void loadEmployees() {
     RetrofitService retrofitService = new RetrofitService();
     EmployeeApi employeeApi = retrofitService.getRetrofit().create(EmployeeApi.class);
 
     employeeApi.getEmployeesByFilter(employeeFilter)
-        .enqueue(new Callback<List<Employee>>() {
+        .enqueue(new Callback<List<EmployeeDTO>>() {
           @Override
-          public void onResponse(Call<List<Employee>> call, Response<List<Employee>> response) {
+          public void onResponse(Call<List<EmployeeDTO>> call, Response<List<EmployeeDTO>> response) {
             System.out.println("Ответ получен.");
-            populateListView(response.body());
+            EmployeeMapperImpl employeeMapper = new EmployeeMapperImpl();
+            List<EmployeeDTO> employeeDTOList = response.body();
+            List<EmployeeCard> employeeCardList = employeeMapper.dtoListToEmployeeList(employeeDTOList);
+            populateListView(employeeCardList);
           }
 
           @Override
-          public void onFailure(Call<List<Employee>> call, Throwable t) {
+          public void onFailure(Call<List<EmployeeDTO>> call, Throwable t) {
             Toast.makeText(EmployeeListActivity.this, "Failed to load employees", Toast.LENGTH_SHORT).show();
           }
         });
   }
 
-  private void populateListView(List<Employee> employeeList) {
+  private void populateListView(List<EmployeeCard> employeeList) {
     //System.out.println(employeeList.get(0).getFirstName());
     EmployeeAdapter employeeAdapter = new EmployeeAdapter(employeeList);
     recyclerView.setAdapter(employeeAdapter);

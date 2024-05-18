@@ -1,4 +1,6 @@
-package com.genuinecoder.springclient.model;
+package com.genuinecoder.springclient.employee_list_activity.model;
+
+import com.genuinecoder.springclient.employee_list_activity.enumerator.Priority;
 
 import lombok.Data;
 

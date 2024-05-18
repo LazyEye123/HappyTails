@@ -19,4 +19,7 @@
   <style name="spinner_filter_style">
     <item name="android:background">@drawable/spinner_filter</item>
   </style>
+  <style name="register_text_input">
+    <item name="android:background">@drawable/register_text_input_style</item>
+  </style>
 </resources>

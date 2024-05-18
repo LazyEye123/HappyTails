@@ -1,4 +1,4 @@
-package com.genuinecoder.springclient.adapter;
+/*package com.genuinecoder.springclient.adapter;
 
 import android.view.View;
 import android.widget.TextView;
@@ -9,6 +9,8 @@ import com.genuinecoder.springclient.R;
 public class EmployeeHolder extends RecyclerView.ViewHolder {
 
   TextView name, address, rating, reviewCount, price;
+  RecyclerView AnimalTypes;
+
 
   public EmployeeHolder(@NonNull View itemView) {
     super(itemView);
@@ -17,5 +19,6 @@ public class EmployeeHolder extends RecyclerView.ViewHolder {
     rating = itemView.findViewById(R.id.idEmployeeRating);
     reviewCount = itemView.findViewById(R.id.idEmployeeReviewCount);
     price = itemView.findViewById(R.id.idEmployeePrice);
+    AnimalTypes = itemView.findViewById(R.id.idAnimalTypes);
   }
-}
+}*/

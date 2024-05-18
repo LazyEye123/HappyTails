@@ -1,4 +1,4 @@
-package com.genuinecoder.springclient.model;
+package com.genuinecoder.springclient.employee_list_activity.model;
 
 import lombok.Data;
 

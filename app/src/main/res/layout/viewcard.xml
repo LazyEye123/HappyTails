@@ -13,7 +13,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="138dp">
+        android:layout_height="169dp">
 
         <ImageView
             android:id="@+id/idEmployeeAvatar"
@@ -21,19 +21,20 @@
             android:layout_height="70dp"
             android:layout_marginStart="10dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="50dp"
             android:layout_marginEnd="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginBottom="10dp"
             android:contentDescription="@string/app_name"
+            android:src="@drawable/avatar_template"
             android:padding="5dp" />
 
         <TextView
             android:id="@+id/idEmployeeName"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="35dp"
             android:layout_marginEnd="150dp"
             android:layout_toEndOf="@id/idEmployeeAvatar"
             android:fontFamily="@font/noto_sans"
@@ -54,8 +55,7 @@
             android:drawablePadding="2dp"
             android:fontFamily="@font/noto_sans"
             android:text="@string/card_address"
-            android:textColor="#212528"
-            />
+            android:textColor="#212528" />
 
         <TextView
             android:id="@+id/idEmployeePrice"
@@ -64,7 +64,7 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="11dp"
             android:fontFamily="@font/noto_sans"
             android:text="@string/card_price"
@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="85dp"
             android:layout_marginEnd="22dp"
             android:fontFamily="@font/noto_sans"
             android:text="за 30 мин"
@@ -92,10 +92,11 @@
             android:id="@+id/idEmployeeRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="110dp"
-            android:layout_marginEnd="228dp"
+            android:layout_marginStart="120dp"
+            android:layout_marginTop="137dp"
+            android:layout_marginEnd="225dp"
             android:fontFamily="@font/noto_sans"
             android:text="@string/card_rating"
             android:textAlignment="viewStart"
@@ -107,7 +108,7 @@
             android:layout_width="18sp"
             android:layout_height="18sp"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="110dp"
+            android:layout_marginTop="135dp"
             android:layout_marginEnd="257dp"
             app:srcCompat="@drawable/ic_star" />
 
@@ -118,13 +119,29 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="110dp"
+            android:layout_marginTop="137dp"
             android:layout_marginEnd="150dp"
             android:fontFamily="@font/noto_sans"
             android:text="@string/card_reviews"
             android:textAlignment="center"
             android:textColor="#B95959"
             android:textSize="12sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/idAnimalTypes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-150dp"
+            android:layout_marginTop="35dp"
+            android:layout_toEndOf="@+id/idEmployeeName" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/idOrderTypes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="12dp"
+            android:layout_toEndOf="@+id/idEmployeeAvatar" />
 
     </RelativeLayout>
 

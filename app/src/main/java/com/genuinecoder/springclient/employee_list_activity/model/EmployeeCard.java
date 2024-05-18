@@ -1,11 +1,18 @@
-package com.genuinecoder.springclient.model;
+package com.genuinecoder.springclient.employee_list_activity.model;
 
 import java.util.Date;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-public class Employee {
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class EmployeeCard {
+  Long id;
   String firstName;
   String lastName;
   Date birthdate;
@@ -14,6 +21,7 @@ public class Employee {
   String address;
   String about;
   Integer experience;
+  String photoPath;
   Double rating;
   Integer reviewCount;
   Double price;

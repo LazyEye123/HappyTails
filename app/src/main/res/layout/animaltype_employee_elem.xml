@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--CardView that holds the elements
+    of the child RecyclerView -->
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:card_view="http://schemas.android.com/tools"
+    app:cardBackgroundColor="@android:color/transparent"
+    card_view:cardElevation="0dp"
+    app:cardElevation="0dp"
+    app:cardMaxElevation="0dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginLeft="5dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:elevation="0dp">
+
+        <ImageView
+            android:id="@+id/type_image"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:elevation="0dp"
+            android:fadingEdge="none"
+            app:srcCompat="@mipmap/ic_launcher" />
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

@@ -1,4 +1,4 @@
-package com.genuinecoder.springclient.adapter;
+package com.genuinecoder.springclient.employee_list_activity.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,16 +10,16 @@ import android.widget.TextView;
 
 import com.genuinecoder.springclient.R;
 
-public class EmployeeFilterAdapter extends ArrayAdapter<String> {
+public class EmployeeSortAdapter extends ArrayAdapter<String> {
 
     private static class ViewHolder {
-        ImageView filterImage;
-        TextView filter;
+        ImageView sortImage;
+        TextView sort;
     }
 
-    String[] sorts = {"Собака", "Кот"};
-    int[] sortImages = {R.drawable.dog, R.drawable.cat};
-    public EmployeeFilterAdapter(Context context) {
+    String[] sorts = {"Дешевле", "Много отзывов", "Выше рейтинг"};
+    int[] sortImages = {R.drawable.price, R.drawable.review, R.drawable.rate};
+    public EmployeeSortAdapter(Context context) {
         super(context, R.layout.sort_spinner_row);
     }
 
@@ -48,14 +48,14 @@ public class EmployeeFilterAdapter extends ArrayAdapter<String> {
             LayoutInflater mInflater = (LayoutInflater) getContext().
                     getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.sort_spinner_row, parent, false);
-            mViewHolder.filterImage = convertView.findViewById(R.id.sort_image);
-            mViewHolder.filter = convertView.findViewById(R.id.sort_text);
+            mViewHolder.sortImage = convertView.findViewById(R.id.sort_image);
+            mViewHolder.sort = convertView.findViewById(R.id.sort_text);
             convertView.setTag(mViewHolder);
         } else {
             mViewHolder = (ViewHolder) convertView.getTag();
         }
-        mViewHolder.filterImage.setImageResource(sortImages[position]);
-        mViewHolder.filter.setText(sorts[position]);
+        mViewHolder.sortImage.setImageResource(sortImages[position]);
+        mViewHolder.sort.setText(sorts[position]);
 
         return convertView;
     }

@@ -79,17 +79,14 @@ public class EmployeeService {
         Stream<Employee> employees = employeeRepository.findAll().stream();
         var employeesDto = new ArrayList<EmployeeDTO>();
         switch (employeeFilter.getPriority()) {
-            case Price -> //                return employeeRepository.findAllByAddressAndAnimalTypes_CatAndAnimalTypes_DogAndOrderPrices_DoWalkingAndOrderPrices_DoFurloughAndOrderPrices_DoDogsitterOrderByOrderPrices_WalkingPriceDescOrderPrices_FurloughPriceDescOrderPrices_DogsitterPriceDesc(employeeFilter.getCity(), employeeFilter.getCat(), employeeFilter.getDog(), employeeFilter.getOrderTypes()[0], employeeFilter.getOrderTypes()[1], employeeFilter.getOrderTypes()[2]);
-                    employees = employees
-                            .sorted((o1, o2) -> (int) (orderPricesRepository.findById(o1.getPricesId()).get().getWalkingPrice() - orderPricesRepository.findById(o2.getPricesId()).get().getWalkingPrice()))
-                            .sorted((o1, o2) -> (int) (orderPricesRepository.findById(o1.getPricesId()).get().getFurloughPrice() - orderPricesRepository.findById(o2.getPricesId()).get().getFurloughPrice()))
-                            .sorted((o1, o2) -> (int) (orderPricesRepository.findById(o1.getPricesId()).get().getDogsitterPrice() - orderPricesRepository.findById(o2.getPricesId()).get().getDogsitterPrice()));
-            case Review -> //                return employeeRepository.findAllByAddressAndAnimalTypes_CatAndAnimalTypes_DogAndOrderPrices_DoWalkingAndOrderPrices_DoFurloughAndOrderPrices_DoDogsitterOrderByReviewCountAsc(employeeFilter.getCity(), employeeFilter.getCat(), employeeFilter.getDog(), employeeFilter.getOrderTypes()[0], employeeFilter.getOrderTypes()[1], employeeFilter.getOrderTypes()[2]);
-                    employees = employees
-                            .sorted((o1, o2) -> o2.getReviewCount() - o1.getReviewCount());
-            case Rating -> //                return employeeRepository.findAllByAddressAndAnimalTypes_CatAndAnimalTypes_DogAndOrderPrices_DoWalkingAndOrderPrices_DoFurloughAndOrderPrices_DoDogsitterOrderByRatingAsc(employeeFilter.getCity(), employeeFilter.getCat(), employeeFilter.getDog(), employeeFilter.getOrderTypes()[0], employeeFilter.getOrderTypes()[1], employeeFilter.getOrderTypes()[2]);
-                    employees = employees
-                            .sorted(Comparator.comparing(Employee::getRating).reversed());
+            case Price -> employees = employees
+                    .sorted((o1, o2) -> orderPricesRepository.findById(o1.getPricesId()).get().getWalkingPrice() > 0 ? (int) (orderPricesRepository.findById(o1.getPricesId()).get().getWalkingPrice() - orderPricesRepository.findById(o2.getPricesId()).get().getWalkingPrice()) : 1)
+                    .sorted((o1, o2) -> orderPricesRepository.findById(o1.getPricesId()).get().getFurloughPrice() > 0 ? (int) (orderPricesRepository.findById(o1.getPricesId()).get().getFurloughPrice() - orderPricesRepository.findById(o2.getPricesId()).get().getFurloughPrice()) : 1)
+                    .sorted((o1, o2) -> orderPricesRepository.findById(o1.getPricesId()).get().getDogsitterPrice() > 0 ? (int) (orderPricesRepository.findById(o1.getPricesId()).get().getDogsitterPrice() - orderPricesRepository.findById(o2.getPricesId()).get().getDogsitterPrice()) : 1);
+            case Review -> employees = employees
+                    .sorted((o1, o2) -> o2.getReviewCount() - o1.getReviewCount());
+            case Rating -> employees = employees
+                    .sorted(Comparator.comparing(Employee::getRating).reversed());
         }
         if (employeeFilter.getCat())
             employees = employees.filter(employee -> animalTypesRepository.getById(employee.getAnimalId()).isCat());
@@ -117,8 +114,8 @@ public class EmployeeService {
     private EmployeeDTO convertToDto(Employee e) {
         var employeeDto = employeeMapper.employeeToDto(e);
         var orderPrices = e.getOrderPrices();
-        employeeDto.setPrice(orderPrices.getWalkingPrice());
-        employeeDto.setOrderTypes(new Boolean[]{orderPrices.getWalkingPrice() > 0, orderPrices.getFurloughPrice() > 0, orderPrices.getDogsitterPrice() > 0});
+        employeeDto.setPrices(List.of(orderPrices.getWalkingPrice(), orderPrices.getFurloughPrice(), orderPrices.getDogsitterPrice()));
+        employeeDto.setOrderTypes(List.of(orderPrices.getWalkingPrice() > 0, orderPrices.getFurloughPrice() > 0, orderPrices.getDogsitterPrice() > 0));
         employeeDto.setIsCat(e.getAnimalTypes().isCat());
         employeeDto.setIsDog(e.getAnimalTypes().isDog());
         return employeeDto;

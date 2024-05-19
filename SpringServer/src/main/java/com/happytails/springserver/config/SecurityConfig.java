@@ -30,6 +30,8 @@ public class SecurityConfig {
                     registry
                             .antMatchers("/api/v1.0/registration/**")
                             .permitAll()
+                            .antMatchers("/api/v1.0/authorization")
+                            .hasAnyRole("CLIENT", "EMPLOYEE")
                             .antMatchers("/api/v1.0/employee/**")
                             .hasRole("CLIENT")
                             .anyRequest()

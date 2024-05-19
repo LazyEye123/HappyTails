@@ -24,7 +24,7 @@ public class PetDTO {
     @Positive
     Integer age;
     @Positive
-    Integer weight;
+    Double weight;
     String breed;
     String description;
     String photoPath;

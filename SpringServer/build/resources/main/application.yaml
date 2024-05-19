@@ -1,10 +1,6 @@
 spring:
   liquibase:
     enabled: true
-#  security:
-#    user:
-#      name: admin
-#      password: admin
   datasource:
     username: postgres
     password: 123

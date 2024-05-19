@@ -5,9 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import javax.validation.constraints.*;
 import java.sql.Date;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -30,9 +30,9 @@ public class EmployeeDTO {
     Integer experience;
     Double rating;
     Integer reviewCount;
-    Double price;
+    List<Double> prices;
     String photoPath;
-    Boolean[] orderTypes;
+    List<Boolean> orderTypes;
     Boolean isCat;
     Boolean isDog;
     Integer ratingValue;

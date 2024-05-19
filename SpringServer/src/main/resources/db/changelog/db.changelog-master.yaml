@@ -14,3 +14,9 @@ databaseChangeLog:
   - include:
       file: changeset/add-columns-photo-users_id-to-employee-table-1.0.0.yaml
       relativeToChangelogFile: true
+  - include:
+      file: changeset/rename-table-order-to-orders-1.0.0.yaml
+      relativeToChangelogFile: true
+  - include:
+      file: changeset/change-pet-column-weight-to-real-1.1.0.yaml
+      relativeToChangelogFile: true

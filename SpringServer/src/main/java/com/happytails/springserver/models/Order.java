@@ -13,7 +13,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "order")
+@Table(name = "orders")
 @Data
 @Builder
 @NoArgsConstructor

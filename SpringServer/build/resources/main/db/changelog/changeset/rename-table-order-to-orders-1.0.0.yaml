@@ -1,0 +1,8 @@
+databaseChangeLog:
+  - changeSet:
+      id: 6
+      author: Alexander
+      changes:
+        - renameTable:
+            oldTableName: order
+            newTableName: orders

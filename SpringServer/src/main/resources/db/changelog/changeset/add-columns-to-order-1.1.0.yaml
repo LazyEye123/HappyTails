@@ -1,0 +1,24 @@
+databaseChangeLog:
+  - changeSet:
+      id: 8
+      author: Alexander
+      changes:
+        - renameColumn:
+            tableName: orders
+            oldColumnName: date
+            newColumnName: start_date
+        - addColumn:
+            tableName: orders
+            columns:
+              - column:
+                  name: name
+                  type: varchar(30)
+              - column:
+                  name: phone
+                  type: varchar(30)
+              - column:
+                  name: address
+                  type: varchar(100)
+              - column:
+                  name: end_date
+                  type: date

@@ -20,3 +20,6 @@ databaseChangeLog:
   - include:
       file: changeset/change-pet-column-weight-to-real-1.1.0.yaml
       relativeToChangelogFile: true
+  - include:
+      file: changeset/add-columns-to-order-1.1.0.yaml
+      relativeToChangelogFile: true

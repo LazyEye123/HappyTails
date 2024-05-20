@@ -8,7 +8,11 @@ import com.happytails.springserver.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -25,7 +29,7 @@ public class EmployeeService {
     private final UsersRepository usersRepository;
     private final EmployeeMapperImpl employeeMapper;
 
-    public void save(EmployeeDTO employeeDto) {
+    public EmployeeDTO save(EmployeeDTO employeeDto) {
         var employee = employeeMapper.dtoToEmployee(employeeDto);
         var e = employeeRepository.save(employee);
         e.setAnimalId(e.getId());
@@ -50,10 +54,39 @@ public class EmployeeService {
                 .roles("EMPLOYEE")
                 .build());
         e.setUsersId(u.getId());
-        employeeRepository.save(e);
+        return employeeMapper.employeeToDto(employeeRepository.save(e));
     }
 
-    public void rateEmployee(EmployeeDTO employeeDTO) {
+    public EmployeeDTO uploadEmployeePhoto(MultipartFile photo, Long employeeId) throws IOException {
+        var employee = employeeRepository.findById(employeeId).get();
+        if (!photo.isEmpty()) {
+            StringBuilder saveLocation = new StringBuilder(System.getProperty("user.dir"));
+            saveLocation.append("/src/main/resources/uploaded/images/employees");
+            var file = new File(saveLocation.toString());
+            if (!file.exists()) {
+                file.mkdir();
+            }
+            saveLocation.append("/");
+            saveLocation.append(employeeId);
+            saveLocation.append(".");
+            saveLocation.append(photo.getOriginalFilename().split("[.]")[1]);
+            try {
+                photo.transferTo(new File(saveLocation.toString()));
+            } catch (IOException e) {
+                throw new IOException(e);
+            }
+            employee.setPhotoPath(saveLocation.toString());
+            return employeeMapper.employeeToDto(employeeRepository.save(employee));
+        }
+        return employeeMapper.employeeToDto(employee);
+    }
+
+    public File getEmployeePhoto(EmployeeDTO employeeDTO) throws IOException {
+        var employee = employeeRepository.findById(employeeDTO.getId()).get();
+        return new File(employee.getPhotoPath());
+    }
+
+    public EmployeeDTO rateEmployee(EmployeeDTO employeeDTO) {
         var e = employeeRepository.findById(employeeDTO.getId()).get();
         var rate = ratingRepository.findById(e.getRatingId()).get();
         switch (employeeDTO.getRatingValue()) {
@@ -66,7 +99,7 @@ public class EmployeeService {
         double middleValue = (rate.getOne() + 2 * rate.getTwo() + 3 * rate.getThree() + 4 * rate.getFour() + 5 * rate.getFive()) / (double) (rate.getOne() + rate.getTwo() + rate.getThree() + rate.getFour() + rate.getFive());
         e.setRating(middleValue);
         ratingRepository.save(rate);
-        employeeRepository.save(e);
+        return employeeMapper.employeeToDto(employeeRepository.save(e));
     }
 
     public List<EmployeeDTO> getAllEmployees() {
@@ -107,10 +140,6 @@ public class EmployeeService {
         for (var e : employees.toList())
             employeesDto.add(convertToDto(e));
         return employeesDto;
-    }
-
-    public void delete(Long employeeId) {
-        employeeRepository.deleteById(employeeId);
     }
 
     private EmployeeDTO convertToDto(Employee e) {

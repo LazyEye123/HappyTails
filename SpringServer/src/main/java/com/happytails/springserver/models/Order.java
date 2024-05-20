@@ -26,8 +26,16 @@ public class Order {
     @Column(name = "service_type")
     @Enumerated(EnumType.STRING)
     private ServiceType serviceType;
-    @Column(name = "date")
-    private Date date;
+    @Column(name = "start_date")
+    private Date startDate;
+    @Column(name = "end_date")
+    private Date endDate;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "phone")
+    private String phone;
+    @Column(name = "address")
+    private String address;
     @Column(name = "payment_method")
     @Enumerated(EnumType.STRING)
     private PaymentMethod paymentMethod;

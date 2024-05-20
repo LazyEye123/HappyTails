@@ -2,6 +2,8 @@ package com.happytails.springserver.controller;
 
 import com.happytails.springserver.dto.CustomerDTO;
 import com.happytails.springserver.dto.EmployeeDTO;
+import com.happytails.springserver.mapper.CustomerMapperImpl;
+import com.happytails.springserver.mapper.EmployeeMapperImpl;
 import com.happytails.springserver.service.CustomerService;
 import com.happytails.springserver.service.EmployeeService;
 import com.happytails.springserver.validation.UserAlreadyExsistException;
@@ -21,17 +23,19 @@ public class RegistrationController {
     private final CustomerService customerService;
 
     @PostMapping("/employee")
-    public void createEmployee(@Valid @RequestBody EmployeeDTO employee) throws UserAlreadyExsistException {
+    public EmployeeDTO createEmployee(@Valid @RequestBody EmployeeDTO employee) throws UserAlreadyExsistException {
         if (customerService.checkIsUserNotExists(employee.getLogin())) {
-            employeeService.save(employee);
+            return employeeService.save(employee);
         }
+        return null;
     }
 
     @PostMapping("/customer")
-    public void createCustomer(@Valid @RequestBody CustomerDTO customer) throws UserAlreadyExsistException {
+    public CustomerDTO createCustomer(@Valid @RequestBody CustomerDTO customer) throws UserAlreadyExsistException {
         if (customerService.checkIsUserNotExists(customer.getLogin())) {
-            customerService.save(customer);
+            return customerService.save(customer);
         }
+        return null;
     }
 
     @PostMapping("/location")

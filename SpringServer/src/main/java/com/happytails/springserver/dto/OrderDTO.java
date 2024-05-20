@@ -1,8 +1,12 @@
 package com.happytails.springserver.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.happytails.springserver.enums.OrderStatus;
 import com.happytails.springserver.enums.PaymentMethod;
 import com.happytails.springserver.enums.ServiceType;
+import com.happytails.springserver.models.Customer;
+import com.happytails.springserver.models.Employee;
+import com.happytails.springserver.models.Pet;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -21,7 +25,11 @@ public class OrderDTO {
     Long id;
     ServiceType serviceType;
     @Past
-    Date date;
+    Date startDate;
+    Date endDate;
+    String name;
+    String phone;
+    String address;
     PaymentMethod paymentMethod;
     OrderStatus orderStatus;
     @Positive
@@ -29,4 +37,7 @@ public class OrderDTO {
     Long clientId;
     Long petId;
     Long employeeId;
+    Pet pet;
+    Customer customer;
+    Employee employee;
 }

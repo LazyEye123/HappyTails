@@ -24,7 +24,7 @@ public class AdviceController {
 
     @ExceptionHandler(UserAlreadyExsistException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public  Violation onUserAlreadyExistException(UserAlreadyExsistException e) {
-        return new Violation("Ошибка!", e.getMessage());
+    public  ValidationErrorResponse onUserAlreadyExistException(UserAlreadyExsistException e) {
+        return new ValidationErrorResponse(List.of(new Violation("login", e.getMessage())));
     }
 }

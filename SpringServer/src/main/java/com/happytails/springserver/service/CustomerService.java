@@ -22,6 +22,8 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -65,6 +67,22 @@ public class CustomerService {
         return petRepository.save(petMapper.dtoToPet(petDTO));
     }
 
+    public List<PetDTO> getAllPets(String username) {
+        var customer = customerRepository.findByUsersId(usersRepository.findByUsername(username).getId());
+            return customer
+                    .getPetList()
+                    .stream()
+                    .map(petMapper::petToDto)
+                    .collect(Collectors.toList());
+    }
+    public List<OrderDTO> getAllOrders(String username){
+        var customer = customerRepository.findByUsersId(usersRepository.findByUsername(username).getId());
+        return customer
+                .getOrderList()
+                .stream()
+                .map(orderMapper::orderToDto)
+                .collect(Collectors.toList());
+    }
     public void deletePet(PetDTO petDTO) {
         petRepository.delete(petMapper.dtoToPet(petDTO));
     }

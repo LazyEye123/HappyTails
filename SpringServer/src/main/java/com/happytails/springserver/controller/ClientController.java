@@ -11,6 +11,7 @@ import com.happytails.springserver.filter.EmployeeFilter;
 import com.maxmind.geoip2.exception.GeoIp2Exception;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
 import java.net.*;
 import java.io.*;
 
@@ -20,6 +21,8 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.UnknownHostException;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -53,6 +56,7 @@ public class ClientController {
     public Pet addPet(@Valid @RequestBody PetDTO petDTO) {
         return customerService.savePet(petDTO);
     }
+
     @PutMapping("/pet")
     public Pet updatePet(@Valid @RequestBody PetDTO petDTO) {
         return customerService.savePet(petDTO);
@@ -63,8 +67,22 @@ public class ClientController {
         customerService.deletePet(petDTO);
     }
 
+    @GetMapping("/pet")
+    public List<PetDTO> getAllPets(HttpServletRequest request) {
+        String auth = request.getHeader("Authorization").substring(6);
+        var arr = Base64.getDecoder().decode(auth);
+        return customerService.getAllPets(new String(arr, StandardCharsets.UTF_8).split(":")[0]);
+    }
+
     @PostMapping("/order")
     public Order createOrder(@Valid @RequestBody OrderDTO orderDTO) {
         return customerService.createOrder(orderDTO);
+    }
+
+    @GetMapping("/order")
+    public List<OrderDTO> getAllOrders(HttpServletRequest request) {
+        String auth = request.getHeader("Authorization").substring(6);
+        var arr = Base64.getDecoder().decode(auth);
+        return customerService.getAllOrders(new String(arr, StandardCharsets.UTF_8).split(":")[0]);
     }
 }

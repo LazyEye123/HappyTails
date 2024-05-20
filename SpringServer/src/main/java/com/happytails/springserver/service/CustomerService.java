@@ -50,10 +50,15 @@ public class CustomerService {
     }
 
     public boolean checkIsUserNotExists(String username) throws UserAlreadyExsistException {
-        if (usersRepository.findByUsername(username)!=null) {
+        if (usersRepository.findByUsername(username) != null) {
             throw new UserAlreadyExsistException(String.format("Пользователь с логином %s уже существует.", username));
         }
         return true;
+    }
+
+    public CustomerDTO getUserByUsername(String username) {
+        var customer = customerRepository.findByUsersId(usersRepository.findByUsername(username).getId());
+        return customerMapper.customerToDto(customer);
     }
 
     public CityResponse getUserLocation(String ipAddress) throws IOException, GeoIp2Exception {
@@ -63,19 +68,39 @@ public class CustomerService {
         return databaseReader.city(InetAddress.getByName(ipAddress)); //109.106.143.87
     }
 
-    public Pet savePet(PetDTO petDTO) {
-        return petRepository.save(petMapper.dtoToPet(petDTO));
+    public Pet savePet(PetDTO petDTO) throws IOException {
+        var pet = petMapper.dtoToPet(petDTO);
+//        var photo = petDTO.getPhoto();
+//        if (!photo.isEmpty()) {
+//            StringBuilder saveLocation =  new StringBuilder("./src/main/resources/uploaded/images/pets");
+//            var file = new File(saveLocation.toString());
+//            if (!file.exists()) {
+//                file.mkdir();
+//            }
+//            saveLocation.append("/");
+//            saveLocation.append(pet.getId());
+//            saveLocation.append(".");
+//            saveLocation.append(photo.getOriginalFilename().split("[.]")[1]);
+//            try {
+//                photo.transferTo(new File(saveLocation.toString()));
+//            } catch (IOException e) {
+//                throw new IOException(e);
+//            }
+//            pet.setPhotoPath(saveLocation.toString());
+//        }
+        return petRepository.save(pet);
     }
 
     public List<PetDTO> getAllPets(String username) {
         var customer = customerRepository.findByUsersId(usersRepository.findByUsername(username).getId());
-            return customer
-                    .getPetList()
-                    .stream()
-                    .map(petMapper::petToDto)
-                    .collect(Collectors.toList());
+        return customer
+                .getPetList()
+                .stream()
+                .map(petMapper::petToDto)
+                .collect(Collectors.toList());
     }
-    public List<OrderDTO> getAllOrders(String username){
+
+    public List<OrderDTO> getAllOrders(String username) {
         var customer = customerRepository.findByUsersId(usersRepository.findByUsername(username).getId());
         return customer
                 .getOrderList()
@@ -83,6 +108,7 @@ public class CustomerService {
                 .map(orderMapper::orderToDto)
                 .collect(Collectors.toList());
     }
+
     public void deletePet(PetDTO petDTO) {
         petRepository.delete(petMapper.dtoToPet(petDTO));
     }

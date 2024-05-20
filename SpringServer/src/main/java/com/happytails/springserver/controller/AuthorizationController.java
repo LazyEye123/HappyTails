@@ -7,7 +7,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,14 +20,9 @@ public class AuthorizationController {
 
     @PostMapping("/authorization")
     @ResponseStatus(HttpStatus.OK)
-    public CustomerDTO authorization(@RequestBody CustomerDTO customerDTO) throws IOException, GeoIp2Exception {
-        var response = customerService.getUserLocation(customerDTO.getAddressWalk());
-        return CustomerDTO
-                .builder()
-                .addressWalk(String.format("Ваш город - %s?", response
-                        .getCity()
-                        .getNames()
-                        .get("ru")))
-                .build();
+    public CustomerDTO authorization(HttpServletRequest request) throws IOException, GeoIp2Exception {
+        String auth = request.getHeader("Authorization").substring(6);
+        var arr = Base64.getDecoder().decode(auth);
+        return customerService.getUserByUsername(new String(arr, StandardCharsets.UTF_8).split(":")[0]);
     }
 }

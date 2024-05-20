@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -28,5 +29,6 @@ public class PetDTO {
     String breed;
     String description;
     String photoPath;
+//    MultipartFile photo;
     Long ownerId;
 }

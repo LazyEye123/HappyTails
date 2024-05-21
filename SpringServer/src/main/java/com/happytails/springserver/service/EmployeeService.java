@@ -9,11 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -81,11 +79,6 @@ public class EmployeeService {
         return employeeMapper.employeeToDto(employee);
     }
 
-    public File getEmployeePhoto(EmployeeDTO employeeDTO) throws IOException {
-        var employee = employeeRepository.findById(employeeDTO.getId()).get();
-        return new File(employee.getPhotoPath());
-    }
-
     public EmployeeDTO rateEmployee(EmployeeDTO employeeDTO) {
         var e = employeeRepository.findById(employeeDTO.getId()).get();
         var rate = ratingRepository.findById(e.getRatingId()).get();
@@ -112,34 +105,36 @@ public class EmployeeService {
 
     public List<EmployeeDTO> getEmployeesByFilter(EmployeeFilter employeeFilter) {
         Stream<Employee> employees = employeeRepository.findAll().stream();
-        var employeesDto = new ArrayList<EmployeeDTO>();
+        if(!employeeFilter.getCity().isBlank())
+            employees = employees.filter(employee -> employee.getAddress().split(",")[0].equals(employeeFilter.getCity()));
+        if (employeeFilter.getCat())
+            employees = employees.filter(employee -> employee.getAnimalTypes().isCat());
+        if (employeeFilter.getDog())
+            employees = employees.filter(employee -> employee.getAnimalTypes().isDog());
+        for (int i = 0; i < 3; i++)
+            if (employeeFilter.getOrderTypes()[i])
+                switch (i) {
+                    case 0 ->
+                            employees = employees.filter(employee -> employee.getOrderPrices().getWalkingPrice() > 0);
+                    case 1 ->
+                            employees = employees.filter(employee -> employee.getOrderPrices().getFurloughPrice() > 0);
+                    case 2 ->
+                            employees = employees.filter(employee -> employee.getOrderPrices().getDogsitterPrice() > 0);
+                }
+
         switch (employeeFilter.getPriority()) {
             case Price -> employees = employees
-                    .sorted((o1, o2) -> orderPricesRepository.findById(o1.getPricesId()).get().getWalkingPrice() > 0 ? (int) (orderPricesRepository.findById(o1.getPricesId()).get().getWalkingPrice() - orderPricesRepository.findById(o2.getPricesId()).get().getWalkingPrice()) : 1)
-                    .sorted((o1, o2) -> orderPricesRepository.findById(o1.getPricesId()).get().getFurloughPrice() > 0 ? (int) (orderPricesRepository.findById(o1.getPricesId()).get().getFurloughPrice() - orderPricesRepository.findById(o2.getPricesId()).get().getFurloughPrice()) : 1)
-                    .sorted((o1, o2) -> orderPricesRepository.findById(o1.getPricesId()).get().getDogsitterPrice() > 0 ? (int) (orderPricesRepository.findById(o1.getPricesId()).get().getDogsitterPrice() - orderPricesRepository.findById(o2.getPricesId()).get().getDogsitterPrice()) : 1);
+                    .sorted((o1, o2) -> o1.getOrderPrices().getWalkingPrice() > 0 ? (int) (o1.getOrderPrices().getWalkingPrice() - o2.getOrderPrices().getWalkingPrice()) : 1)
+                    .sorted((o1, o2) -> o1.getOrderPrices().getFurloughPrice() > 0 ? (int) (o1.getOrderPrices().getFurloughPrice() - o2.getOrderPrices().getFurloughPrice()) : 1)
+                    .sorted((o1, o2) -> o1.getOrderPrices().getDogsitterPrice() > 0 ? (int) (o1.getOrderPrices().getDogsitterPrice() - o2.getOrderPrices().getDogsitterPrice()) : 1);
             case Review -> employees = employees
                     .sorted((o1, o2) -> o2.getReviewCount() - o1.getReviewCount());
             case Rating -> employees = employees
                     .sorted(Comparator.comparing(Employee::getRating).reversed());
         }
-        if (employeeFilter.getCat())
-            employees = employees.filter(employee -> animalTypesRepository.getById(employee.getAnimalId()).isCat());
-        if (employeeFilter.getDog())
-            employees = employees.filter(employee -> animalTypesRepository.getById(employee.getAnimalId()).isDog());
-        for (int i = 0; i < 3; i++)
-            if (employeeFilter.getOrderTypes()[i])
-                switch (i) {
-                    case 0 ->
-                            employees = employees.filter(employee -> orderPricesRepository.getById(employee.getPricesId()).getWalkingPrice() > 0);
-                    case 1 ->
-                            employees = employees.filter(employee -> orderPricesRepository.getById(employee.getPricesId()).getFurloughPrice() > 0);
-                    case 2 ->
-                            employees = employees.filter(employee -> orderPricesRepository.getById(employee.getPricesId()).getDogsitterPrice() > 0);
-                }
-        for (var e : employees.toList())
-            employeesDto.add(convertToDto(e));
-        return employeesDto;
+        return employees
+                .map(this::convertToDto)
+                .collect(Collectors.toList());
     }
 
     private EmployeeDTO convertToDto(Employee e) {

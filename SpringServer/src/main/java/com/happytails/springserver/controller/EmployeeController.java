@@ -20,9 +20,4 @@ public class EmployeeController {
     public EmployeeDTO uploadEmployeePhoto(@RequestBody MultipartFile photo, @RequestParam("employee_id") Long employeeId) throws IOException {
         return employeeService.uploadEmployeePhoto(photo, employeeId);
     }
-
-    @GetMapping(value = "/employee/photo", produces = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public File getEmployeePhoto(@RequestBody EmployeeDTO employeeDTO) throws IOException {
-       return employeeService.getEmployeePhoto(employeeDTO);
-    }
 }

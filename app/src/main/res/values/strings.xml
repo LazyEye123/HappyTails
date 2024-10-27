@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">SpringClient</string>
+    <string name="app_name">HappyTails</string>
     <string name="form_name">Name</string>
     <string name="form_branch">Branch</string>
     <string name="form_location">Location</string>
@@ -23,6 +23,16 @@
         <item>Воронеж</item>
         <item>Москва</item>
         <item>Санкт-Петербург</item>
+    </string-array>
+
+    <string-array name="gender">
+        <item>Мужской</item>
+        <item>Женский</item>
+    </string-array>
+
+    <string-array name="types">
+        <item>Собака</item>
+        <item>Кот</item>
     </string-array>
 
     <string-array name="sort">

@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,10 +18,10 @@ import com.genuinecoder.springclient.employee_list_activity.adapters.EmployeeAda
 import com.genuinecoder.springclient.employee_list_activity.adapters.EmployeeFilterAdapter;
 import com.genuinecoder.springclient.employee_list_activity.adapters.EmployeeSortAdapter;
 import com.genuinecoder.springclient.employee_list_activity.dto.EmployeeDTO;
+import com.genuinecoder.springclient.employee_list_activity.enumerator.Priority;
 import com.genuinecoder.springclient.employee_list_activity.mapper.EmployeeMapperImpl;
 import com.genuinecoder.springclient.employee_list_activity.model.EmployeeCard;
 import com.genuinecoder.springclient.employee_list_activity.model.EmployeeFilter;
-import com.genuinecoder.springclient.employee_list_activity.enumerator.Priority;
 import com.genuinecoder.springclient.reotrfit.EmployeeApi;
 import com.genuinecoder.springclient.reotrfit.RetrofitService;
 
@@ -36,9 +37,9 @@ public class EmployeeListActivity extends AppCompatActivity {
   private  EmployeeFilter employeeFilter = new EmployeeFilter(
           new Boolean[] {true, false, false},
           Priority.Price,
-          "Воронеж",
-          false,
-          true
+          "Москва",
+          true,
+          false
   );
 
   @Override

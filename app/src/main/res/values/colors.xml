@@ -10,6 +10,11 @@
   <color name="tailspurple">#E4D7E6</color>
   <color name="tailswhite">#EBEBEB</color>
   <color name="tailsordertype">#4A74D5</color>
+  <color name="tailsgray">#212528</color>
+  <color name="tailsselection">#38769B</color>
+  <color name="gradient_color_blue">#95B2F7</color><color name="gradient_color_pink">#CA78DA</color>
+  <color name="gradient_color_orange">#BA948F</color><color name="button_blue">#CCD8F8</color>
+  <color name="button_pink">#DEBDE3</color>
 
 
 </resources>

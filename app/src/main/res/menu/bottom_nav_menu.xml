@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/main_page"
+        android:title="Главная"
+        android:icon="@drawable/ic_main"/>
+    <item
+        android:id="@+id/order_page"
+        android:title="Заказы"
+        android:icon="@drawable/ic_orders"/>
+    <item
+        android:id="@+id/pet_page"
+        android:title="Питомцы"
+        android:icon="@drawable/ic_pets"/>
+    <item
+        android:id="@+id/profile_page"
+        android:title="Профиль"
+        android:icon="@drawable/ic_profile"/>
+</menu>

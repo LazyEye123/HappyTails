@@ -8,6 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.genuinecoder.springclient.R;
 import com.genuinecoder.springclient.employee_list_activity.model.EmployeeCard;
 

@@ -1,15 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/textView_password"
+        android:layout_width="223dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/purple_500"
+        android:fontFamily="@font/noto_sans"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/editTextPassword"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPassword" />
+
+    <TextView
+        android:id="@+id/textView_login"
+        android:layout_width="223dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/purple_500"
+        android:fontFamily="@font/noto_sans"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/editTextLogin"
+        app:layout_constraintTop_toBottomOf="@+id/editTextLogin" />
+
+    <TextView
+        android:id="@+id/textView_lastName"
+        android:layout_width="223dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/purple_500"
+        android:fontFamily="@font/noto_sans"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/editTextSurname"
+        app:layout_constraintTop_toBottomOf="@+id/editTextSurname" />
 
     <Button
         android:id="@+id/buttonRegister"
         android:layout_width="206dp"
         android:layout_height="60dp"
         android:text="Создать аккаунт"
+        android:fontFamily="@font/noto_sans"
         android:textColor="@color/tailswhite"
         android:textColorLink="#AEC3FB"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -26,80 +59,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ellipse_11" />
 
-    <EditText
-        android:id="@+id/editTextName"
-        style="@style/register_text_input"
-        android:layout_width="223dp"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:hint="  Имя"
-        android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.336" />
-
-    <EditText
-        style="@style/register_text_input"
-        android:id="@+id/editTextSurname"
-        android:layout_width="223dp"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:hint="  Фамилия"
-        android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextName"
-        app:layout_constraintVertical_bias="0.05" />
-
-    <EditText
-        android:id="@+id/editTextLogin"
-        style="@style/register_text_input"
-        android:layout_width="223dp"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:hint="  Логин"
-        android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextSurname"
-        app:layout_constraintVertical_bias="0.05" />
-
-    <EditText
-        style="@style/register_text_input"
-        android:id="@+id/editTextPassword"
-        android:layout_width="223dp"
-        android:layout_height="50dp"
-        android:ems="10"
-        android:hint="  Пароль"
-        android:inputType="text"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextLogin"
-        app:layout_constraintVertical_bias="0.05" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="156dp"
-        android:layout_height="38dp"
-        android:fontFamily="@font/noto_sans"
-        android:text="Регистрация"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
-        app:layout_constraintEnd_toEndOf="@+id/imageView4"
-        app:layout_constraintStart_toStartOf="@+id/imageView4"
-        app:layout_constraintTop_toTopOf="@+id/imageView4" />
-
     <ImageView
         android:id="@+id/imageView4"
         android:layout_width="wrap_content"
@@ -107,8 +66,10 @@
         android:layout_marginBottom="49dp"
         app:layout_constraintBottom_toTopOf="@+id/editTextName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/bone" />
 
     <ImageView
@@ -128,6 +89,123 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/img_2" />
 
+    <EditText
+        android:id="@+id/editTextName"
+        style="@style/register_text_input"
+        android:layout_width="223dp"
+        android:layout_height="50dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:ems="10"
+        android:hint="Имя"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.18" />
+
+    <EditText
+        android:id="@+id/editTextSurname"
+        style="@style/register_text_input"
+        android:layout_width="223dp"
+        android:layout_height="50dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:ems="10"
+        android:hint="Фамилия"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextName"
+        app:layout_constraintVertical_bias="0.09" />
+
+    <EditText
+        android:id="@+id/editTextLogin"
+        style="@style/register_text_input"
+        android:layout_width="223dp"
+        android:layout_height="50dp"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:ems="10"
+        android:hint="Логин"
+        android:inputType="text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextSurname"
+        app:layout_constraintVertical_bias="0.11" />
+
+    <EditText
+        android:id="@+id/editTextPassword"
+        style="@style/register_text_input"
+        android:layout_width="223dp"
+        android:layout_height="50dp"
+        android:ems="10"
+        android:hint="Пароль"
+        android:inputType="textPassword"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextLogin"
+        app:layout_constraintVertical_bias="0.14" />
+
+    <Spinner
+        android:id="@+id/spinnerInputCity"
+        style="@style/register_text_input"
+        android:layout_width="223dp"
+        android:layout_height="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
+        app:layout_constraintVertical_bias="0.22" />
+
+
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="156dp"
+        android:layout_height="38dp"
+        android:fontFamily="@font/noto_sans"
+        android:text="Регистрация"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imageView4"
+        app:layout_constraintEnd_toEndOf="@+id/imageView4"
+        app:layout_constraintStart_toStartOf="@+id/imageView4"
+        app:layout_constraintTop_toTopOf="@+id/imageView4" />
+
+    <TextView
+        android:id="@+id/textView_firstName"
+        android:layout_width="223dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/noto_sans"
+        android:textColor="@color/purple_500"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0"
+        app:layout_constraintStart_toStartOf="@+id/editTextName"
+        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:text="Ваш город"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerInputCity"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.73"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

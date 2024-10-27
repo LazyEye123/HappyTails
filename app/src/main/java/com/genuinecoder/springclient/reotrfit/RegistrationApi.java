@@ -5,6 +5,7 @@ import com.genuinecoder.springclient.employee_list_activity.dto.EmployeeDTO;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
+import retrofit2.http.GET;
 import retrofit2.http.POST;
 
 public interface RegistrationApi
@@ -13,5 +14,11 @@ public interface RegistrationApi
     public Call<Void> createEmployee(@Body EmployeeDTO employee);
 
     @POST("/api/v1.0/registration/customer")
-    public Call<Void> createCustomer(@Body CustomerDTO customer);
+    public Call<CustomerDTO> createCustomer(@Body CustomerDTO customer);
+
+    @POST("/api/v1.0/authorization")
+    public Call<CustomerDTO> getCityMessage(@Body CustomerDTO customer);
+
+    @GET("/")
+    public Call<String> getIp();
 }

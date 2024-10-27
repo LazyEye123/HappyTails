@@ -5,6 +5,7 @@ import com.genuinecoder.springclient.employee_list_activity.model.EmployeeCard;
 import com.genuinecoder.springclient.employee_list_activity.model.EmployeeFilter;
 
 import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
